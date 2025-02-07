@@ -1,0 +1,4 @@
+.message-input {
+    font-size: var(--font-medium);
+    resize: none;
+}
