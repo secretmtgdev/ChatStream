@@ -3,8 +3,8 @@ import SendButton from '../send-button/SendButton';
 import MessageInput from '../message-input/MessageInput';
 
 import './MessageInputContainer.css';
-import { Message } from '../../utils/interfaces';
-import { useDispatch } from 'react-redux';
+import { ChannelsStateSlice, Message } from '../../utils/interfaces';
+import { useDispatch, useSelector } from 'react-redux';
 import { sendMessage } from '../../store/messagesSlice';
 import { AppDispatch } from '../../store/store';
 import SocketContext from '../socket-provider/SocketProvider';
@@ -15,6 +15,7 @@ const MessageInputContainer: React.FC<MessageInputContainerProps> = () => {
     const [message, setMessage] = useState('');
     const dispatch = useDispatch<AppDispatch>();
     const socket = useContext(SocketContext);
+    const channelName = useSelector((state: ChannelsStateSlice) => state.channels.selectedChannel);
 
     const handleMessageChange = (newMessage: string) => {
         setMessage(newMessage);
@@ -23,6 +24,7 @@ const MessageInputContainer: React.FC<MessageInputContainerProps> = () => {
     const handleSendMessage = async () => {
         if (message.trim()) {
             const newMessageObject: Message = {
+                channelName: channelName,
                 sender: 'John',
                 content: message,
                 timestamp: new Date().toISOString()

@@ -1,3 +1,15 @@
+.app {
+    display: flex;
+}
+
+#left-panel {
+    width: 150px;
+}
+
+.main-content > * {
+    margin-bottom: 25px;
+}
+
 .flex-container {
     display: flex;
     padding: var(--padding-small);
@@ -16,11 +28,18 @@
     align-items: center;
 }
 
+button:not(.disabled):hover {
+    cursor: pointer;
+}
+
+.button {
+    background-color: blue;
+    color: white;
+    height: 50px;
+    width: 150px;
+}
+
 .disabled {
     background-color: lightgrey;
     color: grey;
-}
-
-button:not(.disabled):hover {
-    cursor: pointer;
 }

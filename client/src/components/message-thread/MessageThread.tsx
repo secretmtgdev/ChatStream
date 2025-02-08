@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import MessageInputContainer from "../message-input-container/MessageInputContainer";
 import MessageList from "../message-list/MessageList";
+
+import './MessageThread.css';
 
 const MessageThread: React.FC = () => {
     return (

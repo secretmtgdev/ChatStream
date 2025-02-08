@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Message, MessagesStateSlice } from '../../utils/interfaces';
+import { ChannelsStateSlice, Message, MessagesStateSlice } from '../../utils/interfaces';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchMessages, sendMessage } from '../../store/messagesSlice';
+import { fetchByChannel, fetchMessages, sendMessage } from '../../store/messagesSlice';
 import { AppDispatch } from '../../store/store';
 import SocketContext from '../socket-provider/SocketProvider';
 
@@ -11,18 +11,18 @@ const MessageList: React.FC = () => {
     const [messages, setMessages] = useState<Message[]>([]);
     const [initialLoad, setInitialLoad] = useState<Boolean>(true);
     const socket = useContext(SocketContext);
-
     const dispatch = useDispatch<AppDispatch>();
 
     const messagesFromStore = useSelector((state: MessagesStateSlice) => state.messages.messages);
     const loading = useSelector((state: MessagesStateSlice) => state.messages.loading);
+    const channel = useSelector((state: ChannelsStateSlice) => state.channels.selectedChannel);
 
     useEffect(() => {
         if (initialLoad) {
             setInitialLoad(false);
         }
 
-        dispatch(fetchMessages());
+        dispatch(fetchByChannel(channel));
         if (socket) {
             socket.on('message', (newMessage) => {
                 dispatch(sendMessage(newMessage));
@@ -42,7 +42,7 @@ const MessageList: React.FC = () => {
 
     return (
         <div className='messages'>
-            {loading && initialLoad ? (
+            { loading && initialLoad ? (
                 <p>Loading messages...</p>
             ): (
                 <div>

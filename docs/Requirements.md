@@ -64,7 +64,6 @@ IDs will be generated using a local sequence number generator for uniqueness and
 |-------|-----------|------|
 | message_id | yes | bigint |
 | message_from | no | bigint |
-| message_to | no | bigint |
 | content | no | text |
 | created_at | no | timestamp |
 
@@ -72,10 +71,9 @@ IDs will be generated using a local sequence number generator for uniqueness and
 | field | isPrimary | type |
 |-------|-----------|------|
 | channel_id | yes | bigint |
-| message_id | yes | bigint |
-| user_id | no | bigint |
+| participants | no | array |
 | content | no | text |
-| created_at | no | timestamp |
+| updated | no | timestamp |
 
 Keeping in mind the information above and the inforation found in the Architecture documentation we'll focus on the following:
 - 1:1 chat with low latency

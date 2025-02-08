@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import messagesReducer from './messagesSlice';
+import channelsReducer from './channelSlice';
 
 const store = configureStore({
     reducer: {
-        messages: messagesReducer
+        messages: messagesReducer,
+        channels: channelsReducer
     }
 });
 

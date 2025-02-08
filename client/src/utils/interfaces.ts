@@ -1,4 +1,5 @@
 export interface Message {
+    channelName: string;
     sender: string;
     content: string;
     timestamp: string;
@@ -7,8 +8,32 @@ export interface Message {
 export interface MessagesState {
     messages: Message[];
     loading: boolean;
+    error: any;
 }
 
 export interface MessagesStateSlice {
     messages: MessagesState;
+}
+
+export interface User {
+    email: string;
+    username: string;
+    password: string;
+    createdAt: string;
+}
+
+export interface Channel {
+    name: string;
+    participants: User[];
+}
+
+export interface ChannelsState {
+    selectedChannel: string;
+    channels: Channel[];
+    loading: boolean;
+    error: any;
+}
+
+export interface ChannelsStateSlice {
+    channels: ChannelsState;
 }

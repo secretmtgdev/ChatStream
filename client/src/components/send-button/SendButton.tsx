@@ -11,7 +11,7 @@ export interface SendButtonProps {
 const SendButton = ({label, onClick, disabled}: SendButtonProps) => {
     const buttonClasses = ['send-button', disabled && 'disabled'].filter(Boolean).join(' ');
     return (
-        <button className={buttonClasses} onClick={onClick} disabled={disabled}>
+        <button type='button' className={buttonClasses} onClick={onClick} disabled={disabled}>
             {label}
         </button>
     );

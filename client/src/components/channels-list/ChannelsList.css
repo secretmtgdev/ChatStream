@@ -1,0 +1,18 @@
+.channels {
+    display: flex;
+    flex-direction: column;
+    padding-left: 0;
+}
+
+.channel {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 5px 0px;
+    list-style-type: none;
+}
+
+.channel:hover {
+    background-color: lightgreen;
+    cursor: pointer;
+}
