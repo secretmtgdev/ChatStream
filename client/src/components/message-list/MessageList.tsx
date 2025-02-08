@@ -1,22 +1,61 @@
-import React from 'react';
-import { Message } from '../../utils/interfaces';
+import React, { useContext, useEffect, useState } from 'react';
+import { Message, MessagesStateSlice } from '../../utils/interfaces';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchMessages, sendMessage } from '../../store/messagesSlice';
+import { AppDispatch } from '../../store/store';
+import SocketContext from '../socket-provider/SocketProvider';
 
-export interface MessageListProps {
-    messages: Message[];
-}
+import './MessageList.css';
 
-const MessageList: React.FC<MessageListProps> = ({ messages }) => {
+const MessageList: React.FC = () => {
+    const [messages, setMessages] = useState<Message[]>([]);
+    const [initialLoad, setInitialLoad] = useState<Boolean>(true);
+    const socket = useContext(SocketContext);
+
+    const dispatch = useDispatch<AppDispatch>();
+
+    const messagesFromStore = useSelector((state: MessagesStateSlice) => state.messages.messages);
+    const loading = useSelector((state: MessagesStateSlice) => state.messages.loading);
+
+    useEffect(() => {
+        if (initialLoad) {
+            setInitialLoad(false);
+        }
+
+        dispatch(fetchMessages());
+        if (socket) {
+            socket.on('message', (newMessage) => {
+                dispatch(sendMessage(newMessage));
+            });
+        }
+
+        return () => {
+            if (socket) {
+                socket.off('message');
+            }
+        }
+    }, [dispatch, socket]);
+
+    useEffect(() => {
+        setMessages(messagesFromStore);
+    }, [messagesFromStore]);
+
     return (
         <div className='messages'>
-            {messages.map((message) => (
-                <div key={message.id} className='message'>
-                    <p>
-                        <strong>{message.sender}</strong>
-                        ({new Date(message.timestamp).toLocaleTimeString()})
-                    </p>
-                    <p>{message.content}</p>
+            {loading && initialLoad ? (
+                <p>Loading messages...</p>
+            ): (
+                <div>
+                    {messages.map((message, idx) => (
+                        <div key={idx} className='message'>
+                            <p>
+                                <strong>{message.sender}</strong> ({new Date(message.timestamp).toLocaleTimeString()})
+                            </p>
+                            <p>{message.content}</p>
+                        </div>
+                    ))}
                 </div>
-            ))}
+            )}
         </div>
     );
 }

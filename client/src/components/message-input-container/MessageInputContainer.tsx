@@ -1,32 +1,40 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import SendButton from '../send-button/SendButton';
 import MessageInput from '../message-input/MessageInput';
 
 import './MessageInputContainer.css';
 import { Message } from '../../utils/interfaces';
 import { useDispatch } from 'react-redux';
-import { addMessage } from '../../store/messagesSlice';
+import { sendMessage } from '../../store/messagesSlice';
+import { AppDispatch } from '../../store/store';
+import SocketContext from '../socket-provider/SocketProvider';
 
-export interface MessageInputContainerProps {
-    
-}
+export interface MessageInputContainerProps {}
 
 const MessageInputContainer: React.FC<MessageInputContainerProps> = () => {
     const [message, setMessage] = useState('');
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
+    const socket = useContext(SocketContext);
+
     const handleMessageChange = (newMessage: string) => {
         setMessage(newMessage);
     }
 
-    const handleSendMessage = () => {
+    const handleSendMessage = async () => {
         if (message.trim()) {
             const newMessageObject: Message = {
-                id: 3,
                 sender: 'John',
                 content: message,
                 timestamp: new Date().toISOString()
             };
-            dispatch(addMessage(newMessageObject));
+            try {
+                const response = await dispatch(sendMessage(newMessageObject));
+                if (socket && response.payload) {
+                    socket.emit('newMessage', response.payload);
+                }
+            } catch (error) {
+                console.error(`Couldn't send the message out: ${error}`);
+            }
             setMessage('');
         }
     }
