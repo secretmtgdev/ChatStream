@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { ChannelsStateSlice, Message, MessagesStateSlice } from '../../utils/interfaces';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchByChannel, fetchMessages, sendMessage } from '../../store/messagesSlice';
+import { fetchByChannel, sendMessage } from '../../store/messagesSlice';
 import { AppDispatch } from '../../store/store';
 import SocketContext from '../socket-provider/SocketProvider';
 
@@ -34,7 +34,7 @@ const MessageList: React.FC = () => {
                 socket.off('message');
             }
         }
-    }, [dispatch, socket]);
+    }, [dispatch, socket, channel, initialLoad]);
 
     useEffect(() => {
         setMessages(messagesFromStore);

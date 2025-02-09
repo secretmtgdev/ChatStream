@@ -6,7 +6,6 @@ const router = express.Router();
 router.get('/', async (req, res) => {
     try {
         const channels = await Channel.find();
-        console.log(channels);
         res.json(channels);
     } catch (error) {
         res.status(500).json({
@@ -28,8 +27,6 @@ router.post('/', async (req, res) => {
             name,
             participants
         });
-
-        console.log(name);
 
         await newChannel.save();
         res.status(201).json(newChannel);

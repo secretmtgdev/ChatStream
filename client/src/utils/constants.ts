@@ -5,5 +5,11 @@ export const API_MAP = {
     },
     channels: {
         root: 'channels'
+    },
+    authentication: {
+        root: 'auth',
+        login: 'auth/login',
+        signup: 'auth/signup',
+        currentUser: 'auth/me'
     }
 };

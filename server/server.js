@@ -8,6 +8,8 @@ import { rateLimit } from 'express-rate-limit';
 import connectDB from './config/db.js';
 import messageRoutes from './routes/messages.js';
 import channelRoutes from './routes/channels.js';
+import authRoutes from './routes/auth.js';
+import userRoutes from './routes/user.js';
 
 dotenv.config();
 
@@ -47,5 +49,7 @@ io.on('connection', (socket) => {
 
 app.use('/api/messages', messageRoutes);
 app.use('/api/channels', channelRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/user', userRoutes);
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

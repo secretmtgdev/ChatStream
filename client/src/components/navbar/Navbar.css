@@ -1,0 +1,14 @@
+#navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 200px;
+    border: 1px solid black;
+    padding: var(--padding-medium);
+    width: 100%;
+}
+
+.button-auth {
+    color: white;
+}

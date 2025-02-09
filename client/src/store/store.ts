@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import messagesReducer from './messagesSlice';
 import channelsReducer from './channelSlice';
+import userSlice from './userSlice';
 
 const store = configureStore({
     reducer: {
         messages: messagesReducer,
-        channels: channelsReducer
+        channels: channelsReducer,
+        user: userSlice
     }
 });
 

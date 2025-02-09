@@ -1,5 +1,6 @@
 import React from "react";
-import MessageInputContainer from "../message-input-container/MessageInputContainer";
+
+import MessageInput from "../message-input/MessageInput";
 import MessageList from "../message-list/MessageList";
 
 import './MessageThread.css';
@@ -8,7 +9,7 @@ const MessageThread: React.FC = () => {
     return (
         <div className='message-thread'>
             <MessageList />
-            <MessageInputContainer />
+            <MessageInput />
         </div>        
     );
 };

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import { AppDispatch } from "../../store/store";
 import { Channel, ChannelsStateSlice } from "../../utils/interfaces";
 import { fetchChannels, setSelectedChannel } from "../../store/channelSlice";
+import { fetchByChannel } from "../../store/messagesSlice";
 
 import './ChannelsList.css';
-import { fetchByChannel } from "../../store/messagesSlice";
 
 const ChannelList: React.FC = () => {
     const [channels, setChannels] = useState<Channel[]>([]);
@@ -21,7 +22,7 @@ const ChannelList: React.FC = () => {
         }
 
         dispatch(fetchChannels());
-    }, [dispatch]);
+    }, [dispatch, initialLoad]);
 
     useEffect(() => {
         setChannels(channelsFromStore);

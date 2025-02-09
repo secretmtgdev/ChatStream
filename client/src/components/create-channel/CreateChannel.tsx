@@ -45,7 +45,7 @@ const CreateChannel: React.FC = () => {
                 />
             </div>            
             <button 
-                className={['button', 'channel-button', creatingChannel || !channelName.trim() && 'disabled'].filter(Boolean).join(' ')}
+                className={['button', 'channel-button', (creatingChannel || !channelName.trim()) && 'disabled'].filter(Boolean).join(' ')}
                 type='button'
                 onClick={handleCreateChannel}
                 disabled={creatingChannel || !channelName.trim()}

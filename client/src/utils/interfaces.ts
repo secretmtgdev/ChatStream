@@ -15,13 +15,6 @@ export interface MessagesStateSlice {
     messages: MessagesState;
 }
 
-export interface User {
-    email: string;
-    username: string;
-    password: string;
-    createdAt: string;
-}
-
 export interface Channel {
     name: string;
     participants: User[];
@@ -36,4 +29,20 @@ export interface ChannelsState {
 
 export interface ChannelsStateSlice {
     channels: ChannelsState;
+}
+
+export interface User {
+    email: string;
+    username: string;
+    password: string;
+    createdAt: string;
+}
+
+export interface UserState {
+    user: User | null,
+    isAuthenticated: boolean;
+}
+
+export interface UserStateSlice {
+    user: UserState
 }

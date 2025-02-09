@@ -36,7 +36,7 @@ const messagesSlice = createSlice({
             state.loading = true;
             state.error = null;
         })
-        .addCase(fetchMessages.fulfilled, (state, action) => {
+        .addCase(fetchMessages.fulfilled, (state, action: PayloadAction<Message[]>) => {
             state.messages = action.payload;
             state.loading = false;
         })
@@ -48,7 +48,7 @@ const messagesSlice = createSlice({
             state.loading = true;
             state.error = null;
         })
-        .addCase(fetchByChannel.fulfilled, (state, action) => {
+        .addCase(fetchByChannel.fulfilled, (state, action: PayloadAction<Message[]>) => {
             state.messages = action.payload;
             state.loading = false;
         })
@@ -60,7 +60,7 @@ const messagesSlice = createSlice({
             state.loading = true;
             state.error = null;
         })
-        .addCase(sendMessage.fulfilled, (state, action) => {
+        .addCase(sendMessage.fulfilled, (state, action: PayloadAction<Message>) => {
             state.messages.push(action.payload);
             state.loading = false;
         })
